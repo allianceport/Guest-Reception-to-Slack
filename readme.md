@@ -1,1 +1,5 @@
-# this is readme kera
+# this is readme 
+
+* outline
+
+guest reception from ipad to slack by kera
