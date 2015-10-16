@@ -3,50 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Slack Sample</title>
-    <!-- <script src="libraries/p5.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="sketch.js" type="text/javascript"></script> -->
     <meta name=”apple-mobile-web-app-status-bar-style” content=”black-translucent”>
     <meta name=”apple-mobile-web-app-capable” content=”yes”>
-
     <style type="text/css">
-      body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: rgb(255,255,255); letter-spacing: 3px;}
-
-        h1 { text-decoration: none; font-size : 50px; color:rgb(0,0 0);}
-        p { font-size : 20px; }
-        /*a { text-decoration: none; font-size : 40px; color:rgb(120,176,189); 　text-decoration:none;}*/
-        a { width:200px;
-          font-size:45px;
-          font-weight:normal;
-          text-decoration:none;
-          /*display:block;*/
-          text-align:center;
-          padding:15px 35px 15px;
-          color:rgb(255, 255, 255);
-          background-color:rgb(120,176,189);
-          border-radius:10px;
-
-        }
-        #c1 { text-align: center; margin-left: auto; margin-right: auto; width: 800px;}
-        #c2 { text-align: center; }
-        #overlay{
-          display: none;
-		      width: 100%;
-		      height:100%;
-		      text-align: center;
-		      position: fixed;
-		      top: 0;
-          left: 0;
-		      z-index: 100;
-		      background: rgba(0,0,0,0.8);
-	       }
-         #text{
-		      font-size: 55px;
-      		color: rgb(255, 255, 255);;
-      		padding-top: 514px;
-          padding-left: 45px;
-      		vertical-align: middle;
-        }
+      body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: rgb(230,230,230); letter-spacing: 3px;}
+      h1 { text-decoration: none; font-size : 58px; color:rgb(0,0,0); font-weight: normal;}
+      p { font-size : 20px; }
+      a { width:200px;
+        font-size:35px;
+        font-weight:normal;
+        text-decoration:none;
+        /*display:block;*/
+        text-align:center;
+        padding:20px 65px 20px ;
+        margin: 10px 10px 150px -30px;
+        /*color:rgb(255, 255, 255);*/
+        color:rgb(0, 0, 0);
+        /*background-color:rgb(120,176,189);*/
+        /*background-color:rgb(120,150,183);*/
+        background-color:rgb(255, 255, 255);
+        border-radius:3px;
+      }
+      .slack-submit0, .slack-submit2, .slack-submit4 {float: left;}
+      .slack-submit1, .slack-submit3, .slack-submit5 {float: right;}
+      .slack-submit6{color:rgb(255, 255, 255); background-color:rgb(231, 167, 69); margin-left: 10px;}
+      #c1 { text-align: center; margin-top: 80px; margin-left: auto; margin-right: auto; width: 800px; }
+      #c2 { text-align: center; margin-top: 150px;}
+      #overlay{
+        display: none;
+	      width: 100%;
+	      height:100%;
+	      text-align: center;
+	      position: fixed;
+	      top: 0;
+        left: 0;
+	      z-index: 100;
+	      background: rgba(0,0,0,0.9);
+       }
+       #text{font-size: 55px; color: rgb(255, 255, 255); padding-top: 514px;  vertical-align: middle; margin-left: 50px;}
     </style>
 
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -57,28 +51,35 @@
     <script type="text/javascript">
         $(function () {
             var txt;
+            var txt2;
             $('.slack-submit0').on('click', function () {
-              txt = '@futakera 山辺さん、ご来客です。';
+              txt = '@futakera 山辺さん、来客です。';
+              txt2 = '@futakera 来客が取り消されました。';
             });
             $('.slack-submit1').on('click', function () {
-              txt = '@futakera 山田さん、ご来客です。';
+              txt = '@futakera 山田さん、来客です。';
+              txt2 = '@futakera 来客が取り消されました。';
             });
             $('.slack-submit2').on('click', function () {
-              txt = '@futakera 小川さん、ご来客です。';
+              txt = '@futakera 小川さん、来客です。';
+              txt2 = '@futakera 来客が取り消されました。';
             });
             $('.slack-submit3').on('click', function () {
-              txt = '@futakera 川角さん、ご来客です。';
+              txt = '@futakera 川角さん、来客です。';
+              txt2 = '@futakera 来客が取り消されました。';
             });
             $('.slack-submit4').on('click', function () {
-              txt = '@futakera 鈴木さん、ご来客です。';
+              txt = '@futakera 鈴木さん、来客です。';
+              txt2 = '@futakera 来客が取り消されました。';
             });
             $('.slack-submit5').on('click', function () {
-              txt = 'ご来客です。';
+              txt = '来客です。';
+              txt2 = '来客が取り消されました。';
             });
 
             $('.slack-submit0, .slack-submit1, .slack-submit2, .slack-submit3, .slack-submit4, .slack-submit5').on('click', function () {
                 $("#overlay").fadeIn();　/*ふわっと表示*/
-                setTimeout("execute();", 10000);
+                setTimeout("execute();", 10000*6);
                 var url = 'https://slack.com/api/chat.postMessage';
                 var data = {
                     token: 'xoxp-2169984525-11522516720-11857100949-9f1248011f',
@@ -91,6 +92,21 @@
                     data: data,
                 });
               });
+
+              $('.slack-submit6').on('click', function () {
+                  $("#overlay").fadeOut();　/*ふわっと消える*/
+                  var url = 'https://slack.com/api/chat.postMessage';
+                  var data = {
+                      token: 'xoxp-2169984525-11522516720-11857100949-9f1248011f',
+                      channel: '#bot-test',
+                      username: 'test-bot',
+                      text: txt2
+                  };
+                  $.ajax({
+                      url: url,
+                      data: data,
+                  });
+                });
           });
 
           function execute() {
@@ -103,33 +119,23 @@
 </head>
 <body>
   <div id="c1">
-
-    <br /><br /><br />
+    <br />
     <h1>お呼び出しする社員の名前を<br />タッチしてください。</h1>
-      <!-- <br />
-      <p>タッチしてください</p>
-    　<br /> -->
     <ul id="c2">
-    <br />  <br />  <br />
-      <a href="#" class="slack-submit0">山辺真幸</a>
-      <br /><br /><br /><br /><br />
-      <a href="#" class="slack-submit1">山田　洋</a>
-      <br /><br /><br /><br /><br />
-      <a href="#" class="slack-submit2">小川裕子</a>
-      <br /><br /><br /><br /><br />
-      <a href="#" class="slack-submit3">川角友太</a>
-      <br /><br /><br /><br /><br />
-      <a href="#" class="slack-submit4">鈴木詩織</a>
-      <br /><br /><br /><br /><br />
+    <br />
+      <a href="#" class="slack-submit0">山辺 真幸</a>
+      <a href="#" class="slack-submit1">山田　 洋</a>
+      <br />
+      <a href="#" class="slack-submit2">小川 裕子</a>
+      <a href="#" class="slack-submit3">川角 友太</a>
+      <br />
+      <a href="#" class="slack-submit4">鈴木 詩織</a>
       <a href="#" class="slack-submit5">指定なし</a>
     </ul>
   </div>
-
   <div id="overlay">
-       <p id="text">少々お待ちください。</p>
+       <p id="text">只今呼び出しております。</p>
+       <a href="#" class="slack-submit6">取り消し</a>
   </div>
-
-
-
 </body>
 </html>
