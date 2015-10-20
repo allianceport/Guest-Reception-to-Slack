@@ -46,6 +46,7 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js?ver=1.8.3"></script>
     <!-- <script src="sample.js" type="text/javascript"></script>　 -->
+    <script src="settings.js"></script>
     <script src="app.js" type="text/javascript"></script>　
 
     <script type="text/javascript">
@@ -53,40 +54,46 @@
             var txt;
             var txt2;
             $('.slack-submit0').on('click', function () {
-              txt = '@masakick: 山辺さん、来客です。';
-              txt2 = '@masakick: 来客が取り消されました。';
+              txt = "<@masakick>: 山辺さん、来客です。";
+              txt2 = "<@masakick>: 来客が取り消されました。";
             });
             $('.slack-submit1').on('click', function () {
-              txt = '@h_yamada: 山田さん、来客です。';
-              txt2 = '@h_yamada: 来客が取り消されました。';
+              txt = "<@h_yamada>: 山田さん、来客です。";
+              txt2 = '<@h_yamada>: 来客が取り消されました。';
             });
             $('.slack-submit2').on('click', function () {
-              txt = '@ogawa: 小川さん、来客です。';
-              txt2 = '@ogawa: 来客が取り消されました。';
+              txt = "<@ogawa>: 小川さん、来客です。";
+              txt2 = "@ogawa>: 来客が取り消されました。";
             });
             $('.slack-submit3').on('click', function () {
-              txt = '@ytkwsm: 川角さん、来客です。';
-              txt2 = '@ytkwsm: 来客が取り消されました。';
+              txt = "<@ytkwsm>: 川角さん、来客です。";
+              txt2 = "<@ytkwsm>: 来客が取り消されました。";
             });
             $('.slack-submit4').on('click', function () {
-              txt = '@suzuki: 鈴木さん、来客です。';
-              txt2 = '@suzuki: 来客が取り消されました。';
+              txt = "<@suzuki>: 鈴木さん、来客です。";
+              txt2 = "<@suzuki>: 来客が取り消されました。";
             });
             $('.slack-submit5').on('click', function () {
-              txt = '@group: 来客です。';
-              txt2 = '@group: 来客が取り消されました。';
+              txt = "<@group>: 来客です。";
+              txt2 = "<@group>: 来客が取り消されました。";
             });
 
+
+            // var token = setting.token;
+            // var channel = setting.channel;
+            // var username = setting.username;
+            // console.log(token);
             $('.slack-submit0, .slack-submit1, .slack-submit2, .slack-submit3, .slack-submit4, .slack-submit5').on('click', function () {
                 $("#overlay").fadeIn();　/*ふわっと表示*/
                 setTimeout("execute();", 10000*6);
                 var url = 'https://slack.com/api/chat.postMessage';
                 var data = {
-                    token: 'xoxp-2169984525-11522516720-11857100949-9f1248011f',
-                    channel: '#visitor_notification',
-                    username: 'ipad@entrance',
-                    text: txt
+                  token: setting.token,
+                  channel: setting.channel,
+                  username: setting.username,
+                  text: txt
                 };
+                // console.log(data);
                 $.ajax({
                     url: url,
                     data: data,
@@ -97,11 +104,12 @@
                   $("#overlay").fadeOut();　/*ふわっと消える*/
                   var url = 'https://slack.com/api/chat.postMessage';
                   var data = {
-                      token: 'xoxp-2169984525-11522516720-11857100949-9f1248011f',
-                      channel: '#visitor_notification',
-                      username: 'ipad@entrance',
-                      text: txt2
+                    token: setting.token,
+                    channel: setting.channel,
+                    username: setting.username,
+                    text: txt2
                   };
+                  // console.log(data);
                   $.ajax({
                       url: url,
                       data: data,
