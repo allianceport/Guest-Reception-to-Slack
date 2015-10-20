@@ -6,28 +6,41 @@
     <meta name=”apple-mobile-web-app-status-bar-style” content=”black-translucent”>
     <meta name=”apple-mobile-web-app-capable” content=”yes”>
     <style type="text/css">
-      body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: rgb(230,230,230); letter-spacing: 3px;}
-      h1 { text-decoration: none; font-size : 58px; color:rgb(0,0,0); font-weight: normal;}
+      @font-face {
+	      font-family: 'MyFont';
+	      src: url('./fonts/YuGothicStd-R.otf');
+      }
+      /*body { font-family: 'MyFont', YuGothic,　"Yu Gothic" '游ゴシック', sans-serif; background-color: rgb(245,245,245); background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
+      background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(245, 245, 245)),to(rgb(230, 240, 240))); letter-spacing: 2px;}*/
+      body { font-family: sans-serif; background-color: rgb(245,245,245); background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
+      background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(245, 245, 245)),to(rgb(230, 240, 240))); letter-spacing: 2px;}
+      h1 { text-decoration: none; font-size : 60px; color:rgb(0,0,0); font-weight: 100;}
       p { font-size : 20px; }
       a { width:200px;
         font-size:35px;
-        font-weight:normal;
+        font-weight:100;
         text-decoration:none;
         /*display:block;*/
         text-align:center;
-        padding:20px 65px 20px ;
-        margin: 10px 10px 150px -30px;
+        padding:30px 72px 30px ;
+        margin: 10px 30px 100px -10px;
         /*color:rgb(255, 255, 255);*/
         color:rgb(0, 0, 0);
         /*background-color:rgb(120,176,189);*/
         /*background-color:rgb(120,150,183);*/
         background-color:rgb(255, 255, 255);
-        border-radius:3px;
+        border-radius:5px;
+        box-shadow:10px 10px 10px rgba(170, 170, 170, 0.1);
+
+        background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
+
+        background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(255, 255, 255)),to(rgb(250, 250, 250)));
       }
       .slack-submit0, .slack-submit2, .slack-submit4 {float: left;}
       .slack-submit1, .slack-submit3, .slack-submit5 {float: right;}
-      .slack-submit6{color:rgb(255, 255, 255); background-color:rgb(231, 167, 69); margin-left: 10px;}
-      #c1 { text-align: center; margin-top: 80px; margin-left: auto; margin-right: auto; width: 800px; }
+      .slack-submit6{color:rgb(255, 255, 255); background-color:rgb(231, 167, 69); margin-left: 10px;background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
+        background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(231, 167, 69)),to(rgb(201, 137, 39)));}
+      #c1 { text-align: center; margin-top: 80px; margin-left: auto; margin-right: auto; width: 850px; }
       #c2 { text-align: center; margin-top: 150px;}
       #overlay{
         display: none;
@@ -47,12 +60,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js?ver=1.8.3"></script>
     <!-- <script src="sample.js" type="text/javascript"></script>　 -->
     <script src="settings.js"></script>
-    <script src="app.js" type="text/javascript"></script>　
+    <script src="app.js" type="text/javascript"></script>
+    <script src="./libs/jquery/jquery.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <script src="./dist/jquery.kerning.js"></script>　
 
     <script type="text/javascript">
     var txt;
     var txt2;
         $(function () {
+
+            $('h1').kerning("./data/kerningdata-template.json");
+            $('a').kerning("./data/kerningdata-template.json");
+
+
 
             $('.slack-submit0').on('click', function () {
               txt = "<@masakick>: 山辺さん、来客です。";
@@ -126,12 +147,13 @@
 </head>
 <body>
   <div id="c1">
-    <br />
-    <h1>お呼び出しする社員の名前を<br />タッチしてください。</h1>
+      <br />
+
+    <h1 >お呼び出しする社員の名前を<br />タッチしてください。</h1>
     <ul id="c2">
     <br />
       <a href="#" class="slack-submit0">山辺 真幸</a>
-      <a href="#" class="slack-submit1">山田　 洋</a>
+      <a href="#" class="slack-submit1">山田 洋</a>
       <br />
       <a href="#" class="slack-submit2">小川 裕子</a>
       <a href="#" class="slack-submit3">川角 友太</a>
@@ -144,5 +166,9 @@
        <p id="text">只今呼び出しております。</p>
        <a href="#" class="slack-submit6">取り消し</a>
   </div>
+
+  <script type="text/javascript">
+
+</script>
 </body>
 </html>

@@ -16,6 +16,9 @@ function requestListener(request, response) {
         case ".js":
             readFileHandler(requestURL, "text/javascript", false, response);
             break;
+        case ".json":
+            readFileHandler(requestURL, "text/json", false, response);
+            break;
         default:
             readFileHandler("/index.html", "text/html", false, response);
             break;
