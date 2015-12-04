@@ -6,12 +6,6 @@
     <meta name=”apple-mobile-web-app-status-bar-style” content=”black-translucent”>
     <meta name=”apple-mobile-web-app-capable” content=”yes”>
     <style type="text/css">
-      @font-face {
-	      font-family: 'MyFont';
-	      src: url('./fonts/YuGothicStd-R.otf');
-      }
-      /*body { font-family: 'MyFont', YuGothic,　"Yu Gothic" '游ゴシック', sans-serif; background-color: rgb(245,245,245); background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
-      background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(245, 245, 245)),to(rgb(230, 240, 240))); letter-spacing: 2px;}*/
       body { font-family: sans-serif; background-color: rgb(245,245,245);  letter-spacing: 2px;}
       h1 { text-decoration: none; font-size : 60px; color:rgb(50,50,50); font-weight: 100;}
       p { font-size : 20px; }
@@ -23,22 +17,17 @@
         text-align:center;
         padding:30px 72px 30px ;
         margin: 10px 30px 100px -10px;
-        /*color:rgb(255, 255, 255);*/
         color:rgb(50, 50, 50);
-        /*background-color:rgb(120,176,189);*/
-        /*background-color:rgb(120,150,183);*/
         background-color:rgb(255, 255, 255);
         border-radius:5px;
         box-shadow:10px 10px 10px rgba(170, 170, 170, 0.1);
-
         background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
-
         background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(255, 255, 255)),to(rgb(250, 250, 250)));
       }
       .slack-submit0, .slack-submit2, .slack-submit4 {float: left;}
       .slack-submit1, .slack-submit3, .slack-submit5 {float: right;}
-      .slack-submit6{color:rgb(255, 255, 255); background-color:rgb(231, 167, 69); margin-left: 10px;background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
-        background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(231, 167, 69)),to(rgb(201, 137, 39)));}
+      .slack-submit6{color:rgb(255, 255, 255); background-color:rgb(241, 250, 69); margin-left: 10px;background-image:-moz-linear-gradient( top, rgb(250, 250, 250) 10%, rgb(200, 200, 200));
+        background-image:-webkit-gradient(linear,left top,left bottom,from(rgb(231, 187, 69)),to(rgb(211, 157, 39)));}
       #c1 { text-align: center; margin-top: 80px; margin-left: auto; margin-right: auto; width: 850px; }
       #c2 { text-align: center; margin-top: 150px;}
       #overlay{
@@ -52,56 +41,73 @@
 	      z-index: 100;
 	      background: rgba(0,0,0,0.9);
        }
+       #overlay2{
+         display: none;
+ 	      width: 100%;
+ 	      height:100%;
+ 	      text-align: center;
+ 	      position: fixed;
+ 	      top: 0;
+         left: 0;
+ 	      z-index: 100;
+ 	      background: rgba(0,0,0,0.9);
+        }
        #text{font-size: 55px; color: rgb(255, 255, 255); padding-top: 514px;  vertical-align: middle; margin-left: 50px;}
     </style>
 
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js?ver=1.8.3"></script>
-    <!-- <script src="sample.js" type="text/javascript"></script>　 -->
     <script src="settings.js"></script>
     <script src="app.js" type="text/javascript"></script>
     <script src="./libs/jquery/jquery.js"></script>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
     <script src="./dist/jquery.kerning.js"></script>　
-
+    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
     var txt;
     var txt2;
         $(function () {
-
             $('h1').kerning("./data/kerningdata-template.json");
             $('a').kerning("./data/kerningdata-template.json");
-
-
-
             $('.slack-submit0').on('click', function () {
-              txt = "<@masakick>: 山辺さん、来客です。";
-              txt2 = "<@masakick>: 来客が取り消されました。";
+              //txt = "<@masakick>: 山辺さん、来客です。";
+              //txt2 = "<@masakick>: 来客が取り消されました。";
+              txt = "山辺さん、来客です。";
+              txt2 = "来客が取り消されました。";
               sendMessege();
             });
             $('.slack-submit1').on('click', function () {
-              txt = "<@h_yamada>: 山田さん、来客です。";
-              txt2 = '<@h_yamada>: 来客が取り消されました。';
+              // txt = "<@h_yamada>: 山田さん、来客です。";
+              // txt2 = '<@h_yamada>: 来客が取り消されました。';
+              txt = "山田さん、来客です。";
+              txt2 = '来客が取り消されました。';
               sendMessege();
             });
             $('.slack-submit2').on('click', function () {
-              txt = "<@ogawa>: 小川さん、来客です。";
-              txt2 = "<@ogawa>: 来客が取り消されました。";
+              // txt = "<@ogawa>: 小川さん、来客です。";
+              // txt2 = "<@ogawa>: 来客が取り消されました。";
+              txt = "小川さん、来客です。";
+              txt2 = "来客が取り消されました。";
               sendMessege();
             });
             $('.slack-submit3').on('click', function () {
-              txt = "<@ytkwsm>: 川角さん、来客です。";
-              txt2 = "<@ytkwsm>: 来客が取り消されました。";
+              // txt = "<@ytkwsm>: 川角さん、来客です。";
+              // txt2 = "<@ytkwsm>: 来客が取り消されました。";
+              txt = "川角さん、来客です。";
+              txt2 = "来客が取り消されました。";
               sendMessege();
             });
             $('.slack-submit4').on('click', function () {
-              txt = "<@suzuki>: 鈴木さん、来客です。";
-              txt2 = "<@suzuki>: 来客が取り消されました。";
+              // txt = "<@suzuki>: 鈴木さん、来客です。";
+              // txt2 = "<@suzuki>: 来客が取り消されました。";
+              txt = "鈴木さん、来客です。";
+              txt2 = "来客が取り消されました。";
               sendMessege();
             });
             $('.slack-submit5').on('click', function () {
-              txt = "<@group>: 来客です。";
-              txt2 = "<@group>: 来客が取り消されました。";
+              // txt = "<@group>: 来客です。";
+              // txt2 = "<@group>: 来客が取り消されました。";
+              txt = "来客です。";
+              txt2 = "来客が取り消されました。";
               sendMessege();
             });
             $('.slack-submit6').on('click', function () {
@@ -118,8 +124,9 @@
                     url: url,
                     data: data,
                 });
-              });
+            });
           });
+
           function sendMessege() {
             $("#overlay").fadeIn();　/*ふわっと表示*/
             setTimeout("execute();", 10000*6);
@@ -136,18 +143,28 @@
                 data: data,
             });
           }
+
           function execute() {
           	$("#overlay").fadeOut();　/*ふわっと消える*/
           }
           $(window).on('touchmove.noScroll', function(e) {
               e.preventDefault();
           });
+
+          var s = io.connect(setting.url); //ローカル
+          s.on("dataName1", function(dataFromServer) {
+              console.log(dataFromServer.hoge);
+              if(dataFromServer.hoge == 0){
+                $("#overlay2").fadeIn();
+              }else{
+                $("#overlay2").fadeOut();
+              }
+          });
       </script>
 </head>
 <body>
   <div id="c1">
-      <br />
-
+    <br />
     <h1 >お呼び出しする社員の名前を<br />タッチしてください。</h1>
     <ul id="c2">
     <br />
@@ -165,9 +182,8 @@
        <p id="text">只今呼び出しております。</p>
        <a href="#" class="slack-submit6">取り消し</a>
   </div>
-
-  <script type="text/javascript">
-
-</script>
+  <div id="overlay2">
+       <p id="text">本日の営業は終了しました。</p>
+  </div>
 </body>
 </html>
