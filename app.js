@@ -74,7 +74,7 @@ function readFileHandler(fileName, contentType, isBinary, response) {
 }
 
 var settings = require("./settings.js")
-var sentURL = settings.url;
+var sentURL = settings.slackUrl;
 var sentMilkcocoaURL = settings.milkcocoaUrl;
 console.log("url "+sentURL);
 
