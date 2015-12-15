@@ -44,32 +44,59 @@ function readFileHandler(fileName, contentType, isBinary, response) {
     var encoding = !isBinary ? "utf8" : "binary";
     var filePath = __dirname + fileName;
 
-    fs.exists(filePath, function(exits) {
-        if(exits)
-        {
-            fs.readFile(filePath, {encoding: encoding}, function (error, data) {
-                if (error) {
-                    response.statusCode = 500;
-                    response.end("Internal Server Error");
-                } else {
-                    response.statusCode = 200;
-                    response.setHeader("Content-Type", contentType);
-                    if(!isBinary)
-                    {
-                        response.end(data);
-                    }
-                    else
-                    {
-                        response.end(data, "binary");
-                    }
-                }
-            });
-        }
-        else
-        {
-            response.statusCode = 400;
-            response.end("400 Error");
-        }
+    // fs.exists(filePath, function(exits) {
+    //     if(exits)
+    //     {
+    //         fs.readFile(filePath, {encoding: encoding}, function (error, data) {
+    //             if (error) {
+    //                 response.statusCode = 500;
+    //                 response.end("Internal Server Error");
+    //             } else {
+    //                 response.statusCode = 200;
+    //                 response.setHeader("Content-Type", contentType);
+    //                 if(!isBinary)
+    //                 {
+    //                     response.end(data);
+    //                 }
+    //                 else
+    //                 {
+    //                     response.end(data, "binary");
+    //                 }
+    //             }
+    //         });
+    //     }
+    //     else
+    //     {
+    //         response.statusCode = 400;
+    //         response.end("400 Error");
+    //     }
+    // });
+
+    fs.open(filePath, 'ax+', 384 /*=0600*/, function(err, fd) {
+      // if (err) {
+      //   response.statusCode = 400;
+      //   response.end("400 Error");
+      // }
+      fs.readFile(filePath, {encoding: encoding}, function (error, data) {
+          if (error) {
+              response.statusCode = 500;
+              response.end("Internal Server Error");
+          } else {
+              response.statusCode = 200;
+              response.setHeader("Content-Type", contentType);
+              if(!isBinary)
+              {
+                  response.end(data);
+              }
+              else
+              {
+                  response.end(data, "binary");
+              }
+          }
+      });
+
+      fd && fs.close(fd, function(err) {
+      });
     });
 }
 
@@ -97,7 +124,7 @@ io.sockets.on("connection", function (socket) {
       }
     });
     socket.emit('dataName1', {hoge :  valueIndex});
-    ds.push({v : postText});
+    ds.push({v : postText});//milkcocoaにpush
   }
 
   var MilkCocoa = require('milkcocoa');
